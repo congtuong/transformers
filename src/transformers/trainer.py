@@ -2029,9 +2029,9 @@ class Trainer:
                         self.optimizer.first_step(zero_grad=True)
                         loss = self.training_step(model, inputs)
                         self.optimizer.second_step(zero_grad=True)
-
+                        
                     if optimizer_was_run and not self.deepspeed:
-                        self.lr_scheduler.step()
+#                         self.lr_scheduler.step()
 
                     model.zero_grad()
                     self.state.global_step += 1

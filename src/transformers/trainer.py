@@ -1957,6 +1957,7 @@ class Trainer:
                     # Avoid unnecessary DDP synchronization since there will be no backward pass on this example.
                     with model.no_sync():
                         tr_loss_step = self.training_step(model, inputs)
+                        loss = tr_loss_step
                 else:
                     tr_loss_step = self.training_step(model, inputs)
                     loss = tr_loss_step

@@ -1959,9 +1959,9 @@ class Trainer:
                         tr_loss_step = self.training_step(model, inputs)
                         loss = tr_loss_step
                 else:
-                    with model.no_sync():
-                        tr_loss_step = self.training_step(model, inputs)
-                        loss = tr_loss_step
+#                     with model.no_sync():
+                    tr_loss_step = self.training_step(model, inputs)
+                    loss = tr_loss_step
                 if (
                     args.logging_nan_inf_filter
                     and not is_torch_tpu_available()
@@ -2033,8 +2033,8 @@ class Trainer:
                         self.optimizer.second_step(zero_grad=True)
                         self.lr_scheduler.step()
                         
-#                     if optimizer_was_run and not self.deepspeed:
-#                         self.lr_scheduler.step()
+                    if optimizer_was_run and not self.deepspeed:
+                        self.lr_scheduler.step()
 
                     model.zero_grad()
                     self.state.global_step += 1

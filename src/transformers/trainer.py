@@ -1959,8 +1959,9 @@ class Trainer:
                         tr_loss_step = self.training_step(model, inputs)
                         loss = tr_loss_step
                 else:
-                    tr_loss_step = self.training_step(model, inputs)
-                    loss = tr_loss_step
+                    with model.no_sync():
+                        tr_loss_step = self.training_step(model, inputs)
+                        loss = tr_loss_step
                 if (
                     args.logging_nan_inf_filter
                     and not is_torch_tpu_available()

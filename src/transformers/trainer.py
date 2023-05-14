@@ -2024,13 +2024,15 @@ class Trainer:
                         self.scaler.step(self.optimizer)
                         self.scaler.update()
                         scale_after = self.scaler.get_scale()
+                        self.lr_scheduler.step()
                         optimizer_was_run = scale_before <= scale_after
                     else:
                         self.optimizer.first_step(zero_grad=True)
                         loss = self.training_step(model, inputs)
                         self.optimizer.second_step(zero_grad=True)
+                        self.lr_scheduler.step()
                         
-                    if optimizer_was_run and not self.deepspeed:
+#                     if optimizer_was_run and not self.deepspeed:
 #                         self.lr_scheduler.step()
 
                     model.zero_grad()

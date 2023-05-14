@@ -1855,9 +1855,9 @@ class Trainer:
             # use self._trial because the SigOpt/Optuna hpo only call `_hp_search_setup(trial)` instead of passing trial
             # parameter to Train when using DDP.
             self.state.trial_name = self.hp_name(self._trial)
-        if trial is not None:
-            assignments = trial.assignments if self.hp_search_backend == HPSearchBackend.SIGOPT else trial
-            self.state.trial_params = hp_params(assignments)
+#         if trial is not None:
+#             assignments = trial.assignments if self.hp_search_backend == HPSearchBackend.SIGOPT else trial
+#             self.state.trial_params = hp_params(assignments)
         else:
             self.state.trial_params = None
         # This should be the same if the state has been saved but in case the training arguments changed, it's safer
